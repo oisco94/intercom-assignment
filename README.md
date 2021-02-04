@@ -1,13 +1,17 @@
 # Oisin Coburn - intercom assignment
 
 ### Overview
-This project is a simple RESTful API created using spring boot.
+This project is a simple RESTful API created using spring boot. 
 
-It contains 1 endpoint which accepts a list of users and returns the users (sorted by user_id) which are in range of the Dublin Intercom office:
+Just after the API starts up it will read a list of users from a file and print the name and user_id of the invited users.
+(see src/main/java/com/example/demo/DemoApplication.java)
 
-POST - http://localhost:8080/users
 
-Request body
+Additionally, after the API has started - the below endpoint will be exposed return a list of users (sorted by user_id) which are in range of the Dublin Intercom office:
+
+GET - http://localhost:8080/invites
+
+Response body
 
 ```
 [
@@ -46,7 +50,7 @@ Unit tests for this project can be found in
 src/test/java/com/example/demo/UserTests.java
 
 
-##### Running the project
+##### Importing and Running the project
 
 
 

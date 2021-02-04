@@ -1,14 +1,28 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UserService {
+
+    final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     final static double DUBLIN_OFFICE_LONGITUDE = 53.339428;
     final static double DUBLIN_OFFICE_LATITUDE = -6.257664;
@@ -17,13 +31,13 @@ public class UserService {
     final static double EARTH_RADIUS_KM = 6371;
 
     /**
-     * accepts a list of users and returns the subset of users which are in out desired range from our office
      *
-     * @param proposedUsers
      * @return List<User>
      */
-    public List<User> getInvitedUsers(ArrayList<User> proposedUsers) {
-        List<User> invitedUsers = new ArrayList<>();
+    public List<User> getInvitedUsers () throws IOException {
+        ArrayList<User> proposedUsers = getUsersFromFile();
+        ArrayList<User> invitedUsers = new ArrayList<>();
+
         // create a new list of users which are within range of the dublin office
         proposedUsers.forEach(user -> {
             if (isUserWithinOfficeRange(user)) {
@@ -82,5 +96,30 @@ public class UserService {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         return EARTH_RADIUS_KM * c;
+    }
+
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
+    public ArrayList<User> getUsersFromFile() throws IOException {
+        LOGGER.info("reading file and deserializing contents");
+
+        Resource resource = new ClassPathResource("users.json");
+        InputStream inputStream = resource.getInputStream();
+        //to string
+        byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+        String data = new String(bdata, StandardCharsets.UTF_8);
+        //to class
+        Gson gson = new GsonBuilder().create();
+        Type founderListType = new TypeToken<ArrayList<User>>() {
+        }.getType();
+
+        ArrayList<User> users = gson.fromJson(data, founderListType);
+
+        LOGGER.info("users successfully read from file");
+
+        return users;
     }
 }

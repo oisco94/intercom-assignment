@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,6 +39,11 @@ public class UserTests {
         assertFalse(isUserWithinRange);
     }
 
+    @Test
+    public void usersAreReadFromFileCorrectly() throws IOException {
+        ArrayList<User> users = userService.getUsersFromFile();
+        assertNotNull(users);
+    }
 
     @Test
     public void usersAreSortedByUserId(){

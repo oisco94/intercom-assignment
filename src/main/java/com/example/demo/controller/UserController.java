@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users")
-    public List<User> getInvitedUsers(@RequestBody ArrayList<User> usersInput) {
-       return userService.getInvitedUsers(usersInput);
+    @GetMapping("/users")
+    public List<User> getInvitedUsers () throws IOException {
+       return userService.getInvitedUsers();
     }
 }
