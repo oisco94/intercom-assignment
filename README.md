@@ -7,7 +7,7 @@ Just after the API starts up it will read a list of users from a file and print 
 (see src/main/java/com/example/demo/DemoApplication.java)
 
 
-Additionally, after the API has started - the below endpoint will be exposed return a list of users (sorted by user_id) which are in range of the Dublin Intercom office:
+Additionally, after the API has started - the below endpoint will be exposed which returns a list of users (sorted by user_id) who are in range of the Dublin Intercom office:
 
 GET - http://localhost:8080/invites
 
@@ -52,5 +52,15 @@ src/test/java/com/example/demo/UserTests.java
 
 ##### Importing and Running the project
 
+
+to run without an IDE
+
+1. open a terminal in the folder which youd like to open the project
+
+git clone https://github.com/oisco94/intercom-assignment.git
+
+cd intercom-assignment
+
+java -jar rest-service-0.0.1-SNAPSHOT.jar
 
 
