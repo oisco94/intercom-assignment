@@ -34,7 +34,7 @@ public class UserService {
      *
      * @return List<User>
      */
-    public List<User> getInvitedUsers () throws IOException {
+    public ArrayList<User> getInvitedUsers () throws IOException {
         ArrayList<User> proposedUsers = getUsersFromFile();
         ArrayList<User> invitedUsers = new ArrayList<>();
 

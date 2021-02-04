@@ -28,7 +28,7 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
-            ArrayList<User> users = userService.getUsersFromFile();
+            ArrayList<User> users = userService.getInvitedUsers();
             printInvitedUsers(users);
         } catch (IOException e) {
             LOGGER.error(e.toString());
